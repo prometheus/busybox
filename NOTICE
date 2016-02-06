@@ -1,0 +1,15 @@
+Prometheus Busybox Docker Base Images
+Copyright 2013-2016 The Prometheus Authors
+
+
+The following components are used in this product:
+
+Docker
+https://github.com/docker/docker
+Copyright 2013-2016 Docker, Inc.
+Licensed under the Apache License, Version 2.0
+
+Busybox
+https://busybox.net/license.html
+Copyright 1999-2008 Erik Andersen
+Licensed under the GNU GENERAL PUBLIC LICENSE, Version 2
