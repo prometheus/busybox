@@ -29,4 +29,4 @@ deployment:
     commands:
       - make tag SUFFIX=
       - docker login -e $QUAY_EMAIL -u $QUAY_LOGIN -p $QUAY_PASSWORD quay.io
-      - make push
+      - make push SUFFIX=

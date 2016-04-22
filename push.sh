@@ -17,6 +17,7 @@ set -e
 
 source vars.sh
 
+versions=( ${versions[@]} latest )
 for version in "${versions[@]}"; do
-  docker build -t "${IMAGE_NAME}:${version}${SUFFIX}" "${version}"
+  docker push "${IMAGE_NAME}:${version}"
 done

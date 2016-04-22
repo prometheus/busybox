@@ -26,10 +26,9 @@ deps:
 	@./build_deps.sh "$(REPOSITORY)/$(NAME)" "$(SUFFIX)" $(VERSIONS)
 
 tag:
-	docker tag -f "$(REPOSITORY)/$(NAME):uclibc" "$(REPOSITORY)/$(NAME):latest"
-	docker tag -f "$(REPOSITORY)/$(NAME):glibc" "$(REPOSITORY)/$(NAME):glibc"
+	docker tag "$(REPOSITORY)/$(NAME):uclibc" "$(REPOSITORY)/$(NAME):latest"
 
 push:
-	docker push "$(REPOSITORY)/$(NAME)"
+	@./push.sh "$(REPOSITORY)/$(NAME)" "$(SUFFIX)" $(VERSIONS)
 
 .PHONY: build deps all tag push
