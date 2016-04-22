@@ -29,4 +29,7 @@ tag:
 	docker tag -f "$(REPOSITORY)/$(NAME):uclibc" "$(REPOSITORY)/$(NAME):latest"
 	docker tag -f "$(REPOSITORY)/$(NAME):glibc" "$(REPOSITORY)/$(NAME):glibc"
 
-.PHONY: build deps all tag
+push:
+	docker push "$(REPOSITORY)/$(NAME)"
+
+.PHONY: build deps all tag push
