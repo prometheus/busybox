@@ -11,16 +11,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-REPOSITORY := prom
+REPOSITORY := quay.io/prometheus
 NAME       := busybox
 BRANCH     := $(shell git rev-parse --abbrev-ref HEAD)
 SUFFIX     ?= -$(BRANCH)
 VERSIONS   ?= uclibc glibc
 
-build:
+all: deps build
+
+build: 
 	@./build.sh "$(REPOSITORY)/$(NAME)" "$(SUFFIX)" $(VERSIONS)
 
 deps:
 	@./build_deps.sh "$(REPOSITORY)/$(NAME)" "$(SUFFIX)" $(VERSIONS)
 
-.PHONY: build deps
+tag:
+	docker tag "$(REPOSITORY)/$(NAME):uclibc" "$(REPOSITORY)/$(NAME):latest"
+	docker tag "$(REPOSITORY)/$(NAME):glibc" "$(REPOSITORY)/$(NAME):glibc"
+
+.PHONY: build deps all tag
