@@ -1,9 +1,8 @@
 # Prometheus Busybox Docker Base Images
 
-[![Docker Stars](https://img.shields.io/docker/stars/prom/busybox.svg)][hub]
+[![CircleCI](https://circleci.com/gh/prometheus/busybox/tree/master.svg?style=shield)][circleci]
+[![Docker Repository on Quay](https://quay.io/repository/prometheus/busybox/status)][quay]
 [![Docker Pulls](https://img.shields.io/docker/pulls/prom/busybox.svg)][hub]
-[![Image Size](https://img.shields.io/imagelayers/image-size/prom/busybox/latest.svg)][imagelayers]
-[![Image Layers](https://img.shields.io/imagelayers/layers/prom/busybox/latest.svg)][imagelayers]
 
 ## Tags
 
@@ -54,5 +53,6 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md)
 Apache License 2.0, see [LICENSE](LICENSE).
 
 
+[circleci]: https://circleci.com/gh/prometheus/busybox
 [hub]: https://hub.docker.com/r/prom/busybox/
-[imagelayers]: https://imagelayers.io/?images=prom/busybox:latest
+[quay]: https://quay.io/repository/prometheus/busybox
