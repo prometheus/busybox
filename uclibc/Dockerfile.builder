@@ -11,6 +11,7 @@ RUN set -x \
     && set -- \
         /etc/ssl/certs/ca-certificates.crt \
         /usr/share/zoneinfo \
+        /etc/services \
     && while [ "$#" -gt 0  ]; do \
         f="$1"; shift; \
         fn="$(basename "$f")"; \ 

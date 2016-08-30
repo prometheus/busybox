@@ -11,6 +11,7 @@ RUN set -x \
     && set -- \
         /etc/ssl/certs/ca-certificates.crt \
         /usr/share/zoneinfo \
+        /etc/services \
         /lib/"$(gcc -print-multiarch)"/libpthread.so.* \
     && while [ "$#" -gt 0  ]; do \
         f="$1"; shift; \
