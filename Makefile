@@ -14,7 +14,7 @@
 REPOSITORY := quay.io/prometheus
 NAME       := busybox
 BRANCH     := $(shell git rev-parse --abbrev-ref HEAD)
-SUFFIX     ?= -$(BRANCH)
+SUFFIX     ?= -$(subst /,-,$(BRANCH))
 VERSIONS   ?= uclibc glibc
 
 all: deps build
