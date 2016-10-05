@@ -12,7 +12,7 @@ Based on the official `busybox:uclibc` base image.
 
 The following files are added (taken from Debian) to fix some common issues:
 
-- `/etc/ssl/certs/ca-certificates.crt` : for HTTS support
+- `/etc/ssl/certs/ca-certificates.crt` : for HTTPS support
 - `/usr/share/zoneinfo` : for timezones
 
 ### prom/busybox:glibc : glibc
@@ -21,7 +21,7 @@ Based on the official `busybox:glibc` base image.
 
 The following files are added (taken from Debian) to fix some common issues:
 
-- `/etc/ssl/certs/ca-certificates.crt` : for HTTS support
+- `/etc/ssl/certs/ca-certificates.crt` : for HTTPS support
 - `/usr/share/zoneinfo` : for timezones
 - `/lib/x86_64-linux-gnu/libpthread.so.0` : common required lib for project binaries that cannot be statically builded.
 
