@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[ "$#" -eq 0 ] && echo "Missing args: $0 {IMAGE_NAME} {SUFFIX} {VERSIONS}";
+[ "$#" -lt 2 ] && echo "Missing args: $0 {IMAGE_NAME} {SUFFIX} {VERSIONS}" && exit 0;
 
 IMAGE_NAME="$1"; shift;
 SUFFIX="$1"; shift;
