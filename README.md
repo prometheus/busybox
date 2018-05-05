@@ -14,6 +14,7 @@ The following files are added (taken from Debian) to fix some common issues:
 
 - `/etc/ssl/certs/ca-certificates.crt` : for HTTPS support
 - `/usr/share/zoneinfo` : for timezones
+- `/etc/services` : for named ports resolution
 
 ### prom/busybox:glibc : glibc
 
@@ -23,15 +24,8 @@ The following files are added (taken from Debian) to fix some common issues:
 
 - `/etc/ssl/certs/ca-certificates.crt` : for HTTPS support
 - `/usr/share/zoneinfo` : for timezones
+- `/etc/services` : for named ports resolution
 - `/lib/x86_64-linux-gnu/libpthread.so.0` : common required lib for project binaries that cannot be statically builded.
-
-
-## Update build dependencies
-
-```
-$ git clone https://github.com/prometheus/busybox.git
-$ make deps
-```
 
 ## Build Docker images locally
 
