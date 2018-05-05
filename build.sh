@@ -18,5 +18,5 @@ set -e
 source vars.sh
 
 for version in "${versions[@]}"; do
-  docker build -t "${IMAGE_NAME}:${version}${SUFFIX}" "${version}"
+  docker build --pull -t "${IMAGE_NAME}:${version}${SUFFIX}" "${version}"
 done

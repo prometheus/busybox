@@ -17,13 +17,10 @@ BRANCH     := $(shell git rev-parse --abbrev-ref HEAD)
 SUFFIX     ?= -$(subst /,-,$(BRANCH))
 VERSIONS   ?= uclibc glibc
 
-all: deps build
+all: build
 
 build: 
 	@./build.sh "$(REPOSITORY)/$(NAME)" "$(SUFFIX)" $(VERSIONS)
-
-deps:
-	@./build_deps.sh "$(REPOSITORY)/$(NAME)" "$(SUFFIX)" $(VERSIONS)
 
 tag:
 	docker tag "$(REPOSITORY)/$(NAME):uclibc" "$(REPOSITORY)/$(NAME):latest"
@@ -31,4 +28,4 @@ tag:
 push:
 	@./push.sh "$(REPOSITORY)/$(NAME)" "$(SUFFIX)" $(VERSIONS)
 
-.PHONY: build deps all tag push
+.PHONY: build all tag push
