@@ -10,6 +10,7 @@ RUN \
 RUN set -x \
     && mkdir -p rootfs/lib \
     && set -- \
+        /etc/nsswitch.conf \
         /etc/ssl/certs/ca-certificates.crt \
         /usr/share/zoneinfo \
         /etc/services \
