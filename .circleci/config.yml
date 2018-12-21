@@ -3,20 +3,32 @@ version: 2
 
 jobs:
   build:
-    machine: true
+    machine:
+      # Use an image with kernel 4.8+, which supports the binfmt_misc `F`
+      # flag required for cross-building docker images without adding qemu
+      # to the image itself.
+      # https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html
+
+      # Available images are listed here:
+      # https://circleci.com/docs/2.0/configuration-reference/#machine
+      image: circleci/classic:201808-01
 
     steps:
     - checkout
     - run: docker info
+      # Register binfmt_misc targets for cross-building
+    - run: docker run --privileged linuxkit/binfmt:v0.6
     - run: make
     - run: docker images
 
   build_master:
-    machine: true
+    machine:
+      image: circleci/classic:201808-01
 
     steps:
     - checkout
     - run: docker info
+    - run: docker run --privileged linuxkit/binfmt:v0.6
     - run: make SUFFIX=
     - run: docker images
     - run: make tag SUFFIX=
