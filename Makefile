@@ -23,15 +23,20 @@ build:
 	@./build.sh "$(REPOSITORY)/$(NAME)" "" "$(SUFFIX)" $(VERSIONS)
 	@./build.sh "$(REPOSITORY)/$(NAME)-arm32v7-linux" "arm32v7/" "$(SUFFIX)" $(VERSIONS)
 	@./build.sh "$(REPOSITORY)/$(NAME)-arm64v8-linux" "arm64v8/" "$(SUFFIX)" $(VERSIONS)
+	# uclibc doens't support ppc64le
+	@./build.sh "$(REPOSITORY)/$(NAME)-ppc64le-linux" "ppc64le/" "$(SUFFIX)" glibc
 
 tag:
 	docker tag "$(REPOSITORY)/$(NAME):uclibc" "$(REPOSITORY)/$(NAME):latest"
 	docker tag "$(REPOSITORY)/$(NAME)-arm32v7-linux:uclibc" "$(REPOSITORY)/$(NAME)-arm32v7-linux:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-arm64v8-linux:uclibc" "$(REPOSITORY)/$(NAME)-arm64v8-linux:latest"
+	docker tag "$(REPOSITORY)/$(NAME)-ppc64le-linux:uclibc" "$(REPOSITORY)/$(NAME)-ppc64le-linux:latest"
 
 push:
 	@./push.sh "$(REPOSITORY)/$(NAME)" "" "$(SUFFIX)" $(VERSIONS)
 	@./push.sh "$(REPOSITORY)/$(NAME)-arm32v7-linux" "arm32v7/" "$(SUFFIX)" $(VERSIONS)
 	@./push.sh "$(REPOSITORY)/$(NAME)-arm64v8-linux" "arm64v8/" "$(SUFFIX)" $(VERSIONS)
+	# uclibc doens't support ppc64le
+	@./push.sh "$(REPOSITORY)/$(NAME)-ppc64le-linux" "ppc64le/" "$(SUFFIX)" glibc
 
 .PHONY: build all tag push
