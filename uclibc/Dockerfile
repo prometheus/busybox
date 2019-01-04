@@ -1,4 +1,5 @@
-FROM debian:stretch
+ARG ARCH=""
+FROM ${ARCH}debian:stretch
 
 RUN \
     apt-get update && apt-get install -y --no-install-recommends \
@@ -27,7 +28,7 @@ RUN set -x \
         fi; \
     done
 
-FROM        busybox:uclibc
+FROM        ${ARCH}busybox:uclibc
 MAINTAINER  The Prometheus Authors <prometheus-developers@googlegroups.com>
 
 COPY --from=0 /rootfs /
