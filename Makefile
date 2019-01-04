@@ -30,7 +30,7 @@ tag:
 	docker tag "$(REPOSITORY)/$(NAME):uclibc" "$(REPOSITORY)/$(NAME):latest"
 	docker tag "$(REPOSITORY)/$(NAME)-arm32v7-linux:uclibc" "$(REPOSITORY)/$(NAME)-arm32v7-linux:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-arm64v8-linux:uclibc" "$(REPOSITORY)/$(NAME)-arm64v8-linux:latest"
-	docker tag "$(REPOSITORY)/$(NAME)-ppc64le-linux:uclibc" "$(REPOSITORY)/$(NAME)-ppc64le-linux:latest"
+	docker tag "$(REPOSITORY)/$(NAME)-ppc64le-linux:glibc" "$(REPOSITORY)/$(NAME)-ppc64le-linux:latest"
 
 push:
 	@./push.sh "$(REPOSITORY)/$(NAME)" "" "$(SUFFIX)" $(VERSIONS)
