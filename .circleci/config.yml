@@ -30,6 +30,7 @@ jobs:
     - run: make tag SUFFIX=
     - run: docker login -u $QUAY_LOGIN -p $QUAY_PASSWORD quay.io
     - run: make push
+    - run: make manifest SUFFIX=
 
 workflows:
   version: 2
