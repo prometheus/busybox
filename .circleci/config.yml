@@ -4,11 +4,12 @@ version: 2.1
 jobs:
   build:
     docker:
-    - image: circleci/golang:latest
+    - image: docker:latest
 
     steps:
     - checkout
     - setup_remote_docker
+    - run: apk add make bash
     - run: docker info
     - run: uname -a
       # Register binfmt_misc targets for cross-building
@@ -18,11 +19,12 @@ jobs:
 
   build_master:
     docker:
-    - image: circleci/golang:latest
+    - image: docker:latest
 
     steps:
     - checkout
     - setup_remote_docker
+    - run: apk add make bash
     - run: docker info
     - run: docker run --privileged linuxkit/binfmt:v0.6
     - run: make SUFFIX=
