@@ -45,7 +45,7 @@ manifest:
 		"$(REPOSITORY)/$(NAME)-linux-amd64:glibc" \
 		"$(REPOSITORY)/$(NAME)-linux-armv7:glibc" \
 		"$(REPOSITORY)/$(NAME)-linux-armv8:glibc" \
-		"$(REPOSITORY)/$(NAME)-linux-ppc64le:glibc" \
+		"$(REPOSITORY)/$(NAME)-linux-ppc64le:glibc"
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push "$(REPOSITORY)/$(NAME):glibc"
 
 	# Manifest for "latest"
@@ -53,7 +53,7 @@ manifest:
 		"$(REPOSITORY)/$(NAME)-linux-amd64:latest" \
 		"$(REPOSITORY)/$(NAME)-linux-armv7:latest" \
 		"$(REPOSITORY)/$(NAME)-linux-armv8:latest" \
-		"$(REPOSITORY)/$(NAME)-linux-ppc64le:latest" \
+		"$(REPOSITORY)/$(NAME)-linux-ppc64le:latest"
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push "$(REPOSITORY)/$(NAME):latest"
 
 push:
