@@ -9,7 +9,7 @@ jobs:
     steps:
     - checkout
     - setup_remote_docker
-    - run: apk add make bash
+    - run: apk add make bash git
     - run: docker info
     - run: uname -a
       # Register binfmt_misc targets for cross-building
@@ -24,7 +24,7 @@ jobs:
     steps:
     - checkout
     - setup_remote_docker
-    - run: apk add make bash
+    - run: apk add make bash git
     - run: docker info
     - run: docker run --privileged linuxkit/binfmt:v0.6
     - run: make SUFFIX=
