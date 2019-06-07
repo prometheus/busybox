@@ -45,6 +45,7 @@ workflows:
           branches:
             ignore: master
     - build_master:
+        context: org-context
         filters:
           branches:
             only: master
