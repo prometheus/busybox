@@ -17,8 +17,10 @@ BRANCH     := $(shell git rev-parse --abbrev-ref HEAD)
 SUFFIX     ?= -$(subst /,-,$(BRANCH))
 VERSIONS   ?= uclibc glibc
 
+.PHONY: all
 all: build
 
+.PHONY: build
 build:
 	@./build.sh "$(REPOSITORY)/$(NAME)-linux-amd64" "" "$(SUFFIX)" $(VERSIONS)
 	@./build.sh "$(REPOSITORY)/$(NAME)-linux-armv7" "arm32v7/" "$(SUFFIX)" $(VERSIONS)
@@ -26,12 +28,14 @@ build:
 	# uclibc doens't support ppc64le
 	@./build.sh "$(REPOSITORY)/$(NAME)-linux-ppc64le" "ppc64le/" "$(SUFFIX)" glibc
 
+.PHONY: tag
 tag:
 	docker tag "$(REPOSITORY)/$(NAME)-linux-amd64:uclibc" "$(REPOSITORY)/$(NAME)-linux-amd64:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-linux-armv7:uclibc" "$(REPOSITORY)/$(NAME)-linux-armv7:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-linux-arm64:uclibc" "$(REPOSITORY)/$(NAME)-linux-arm64:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-linux-ppc64le:glibc" "$(REPOSITORY)/$(NAME)-linux-ppc64le:latest"
 
+.PHONY: manifest
 manifest:
 	# Manifest for "ulibc"
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create -a "$(REPOSITORY)/$(NAME):uclibc" \
@@ -56,11 +60,10 @@ manifest:
 		"$(REPOSITORY)/$(NAME)-linux-ppc64le:latest"
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push "$(REPOSITORY)/$(NAME):latest"
 
+.PHONY: push
 push:
 	@./push.sh "$(REPOSITORY)/$(NAME)-linux-amd64" "" "$(SUFFIX)" $(VERSIONS)
 	@./push.sh "$(REPOSITORY)/$(NAME)-linux-armv7" "arm32v7/" "$(SUFFIX)" $(VERSIONS)
 	@./push.sh "$(REPOSITORY)/$(NAME)-linux-arm64" "arm64v8/" "$(SUFFIX)" $(VERSIONS)
 	# uclibc doens't support ppc64le
 	@./push.sh "$(REPOSITORY)/$(NAME)-linux-ppc64le" "ppc64le/" "$(SUFFIX)" glibc
-
-.PHONY: build all tag push
