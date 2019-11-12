@@ -35,7 +35,7 @@ tag:
 	docker tag "$(REPOSITORY)/$(NAME)-linux-armv7:uclibc" "$(REPOSITORY)/$(NAME)-linux-armv7:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-linux-arm64:uclibc" "$(REPOSITORY)/$(NAME)-linux-arm64:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-linux-ppc64le:glibc" "$(REPOSITORY)/$(NAME)-linux-ppc64le:latest"
-	docker tag "$(REPOSITORY)/$(NAME)-linux-s390x::glibc" "$(REPOSITORY)/$(NAME)-linux-s390x:latest"
+	docker tag "$(REPOSITORY)/$(NAME)-linux-s390x:glibc" "$(REPOSITORY)/$(NAME)-linux-s390x:latest"
 
 .PHONY: manifest
 manifest:
