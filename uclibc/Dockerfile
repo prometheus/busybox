@@ -1,5 +1,5 @@
 ARG ARCH=""
-FROM ${ARCH}debian:stretch
+FROM ${ARCH}debian:buster
 
 RUN \
     apt-get update && apt-get install -y --no-install-recommends \

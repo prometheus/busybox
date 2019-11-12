@@ -1,5 +1,5 @@
 ARG ARCH=""
-FROM ${ARCH}debian:stretch-slim
+FROM ${ARCH}debian:buster-slim
 
 RUN \
     apt-get update && apt-get install -y --no-install-recommends \
