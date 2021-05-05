@@ -1,51 +1,47 @@
----
 version: 2.1
-
 jobs:
   build:
     docker:
-    - image: docker:18.09.3
-
+      - image: docker:18.09.3
     steps:
-    - checkout
-    - setup_remote_docker:
-        version: 18.09.3
-    - run: apk add make bash git
-    - run: docker info
-    - run: uname -a
-      # Register binfmt_misc targets for cross-building
-    - run: docker run --privileged linuxkit/binfmt:v0.7
-    - run: make
-    - run: docker images
-
+      - checkout
+      - setup_remote_docker:
+          version: 18.09.3
+      - run: apk add make bash git
+      - run: docker info
+      - run: uname -a
+        # Register binfmt_misc targets for cross-building
+      - run: docker run --privileged linuxkit/binfmt:v0.7
+      - run: make
+      - run: docker images
   build_master:
     docker:
-    - image: docker:18.09.3
-
+      - image: docker:18.09.3
     steps:
-    - checkout
-    - setup_remote_docker:
-        version: 18.09.3
-    - run: apk add make bash git
-    - run: docker info
-    - run: docker run --privileged linuxkit/binfmt:v0.7
-    - run: make SUFFIX=
-    - run: docker images
-    - run: make tag SUFFIX=
-    - run: docker login -u $QUAY_LOGIN -p $QUAY_PASSWORD quay.io
-    - run: make push
-    - run: make manifest SUFFIX=
-
+      - checkout
+      - setup_remote_docker:
+          version: 18.09.3
+      - run: apk add make bash git
+      - run: docker info
+      - run: docker run --privileged linuxkit/binfmt:v0.7
+      - run: make SUFFIX=
+      - run: docker images
+      - run: make tag SUFFIX=
+      - run: docker login -u $QUAY_LOGIN -p $QUAY_PASSWORD quay.io
+      - run: make push
+      - run: make manifest SUFFIX=
 workflows:
   version: 2
   prometheus:
     jobs:
-    - build:
-        filters:
-          branches:
-            ignore: master
-    - build_master:
-        context: org-context
-        filters:
-          branches:
-            only: master
+      - build:
+          filters:
+            branches:
+              ignore: master
+      - build_master:
+          context: org-context
+          filters:
+            branches:
+              only: master
+orbs:
+  prometheus: prometheus/prometheus@0.11.0
