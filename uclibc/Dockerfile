@@ -1,5 +1,5 @@
 ARG ARCH=""
-FROM ${ARCH}debian:buster-slim
+FROM ${ARCH}debian:bullseye-slim
 
 RUN \
     apt-get update && apt-get install -y --no-install-recommends \
