@@ -28,7 +28,19 @@ RUN set -x \
         fi; \
     done
 
+FROM        ${ARCH}alpine:latest as alpine
+
 FROM        ${ARCH}busybox:uclibc
 MAINTAINER  The Prometheus Authors <prometheus-developers@googlegroups.com>
+
+# Use the busybox executable from alpine which is generally patched more quickly for vulnerabilities
+COPY --from=alpine /bin/busybox /tmp/busybox
+COPY --from=alpine /lib/ld-musl* /lib/libc.musl* /lib/
+
+RUN cd /lib && \
+    ln -sf $(ls ld-musl*) $(ls libc.musl*) && \
+    rm /bin/* && \
+    /tmp/busybox --install /bin && \
+    mv /tmp/busybox /bin/
 
 COPY --from=0 /rootfs /
