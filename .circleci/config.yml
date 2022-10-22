@@ -1,34 +1,31 @@
 ---
 version: 2.1
 
+executors:
+  vm:
+    machine:
+      image: ubuntu-2204:current
+
 jobs:
   build:
-    docker:
-    - image: docker:20.10.18
+    executor: vm
 
     steps:
     - checkout
-    - setup_remote_docker:
-        version: 20.10.18
-    - run: apk add make bash git
     - run: docker info
     - run: uname -a
       # Register binfmt_misc targets for cross-building
-    - run: docker run --privileged linuxkit/binfmt:v0.8
+    - run: docker run --privileged linuxkit/binfmt:ecd24b710cad869af6a4716809f62d7164286367
     - run: make
     - run: docker images
 
   build_master:
-    docker:
-    - image: docker:20.10.18
+    executor: vm
 
     steps:
     - checkout
-    - setup_remote_docker:
-        version: 20.10.18
-    - run: apk add make bash git
     - run: docker info
-    - run: docker run --privileged linuxkit/binfmt:v0.8
+    - run: docker run --privileged linuxkit/binfmt:ecd24b710cad869af6a4716809f62d7164286367
     - run: make SUFFIX=
     - run: docker images
     - run: make tag SUFFIX=
