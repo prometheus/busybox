@@ -29,7 +29,21 @@ RUN set -x \
         fi; \
     done
 
+FROM        ${ARCH}alpine:latest as alpine
+RUN apk add busybox-static && \
+    rm /bin/* && \
+    /tmp/busybox --install /bin && \
+    mv /tmp/busybox /bin/
+
 FROM        ${ARCH}busybox:glibc
 MAINTAINER  The Prometheus Authors <prometheus-developers@googlegroups.com>
+
+# Use the busybox executable from alpine which is generally patched more quickly for vulnerabilities
+# Use the busybox.static to avoid dynamic library dependencies.
+COPY --from=alpine /bin/busybox.static /tmp/busybox
+
+RUN rm /bin/* && \
+    /tmp/busybox --install /bin && \
+    mv /tmp/busybox /bin/
 
 COPY --from=0 /rootfs /
