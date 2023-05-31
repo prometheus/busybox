@@ -19,8 +19,12 @@ IMAGE_NAME="$1"; shift;
 ARCH="$1"; shift;
 SUFFIX="$1"; shift;
 
+if [[ -n "${ARCH}" ]]; then
+  ARCH="${ARCH}/"
+fi
+
 versions=( "$@" )
-if [ ${#versions[@]} -eq 0 ]; then
+if [[ "${#versions[@]}" -eq 0 ]]; then
   versions=( */ )
 fi
 versions=( "${versions[@]%/}" )
