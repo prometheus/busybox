@@ -37,6 +37,7 @@ tag:
 	docker tag "$(REPOSITORY)/$(NAME)-linux-armv7:uclibc" "$(REPOSITORY)/$(NAME)-linux-armv7:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-linux-arm64:uclibc" "$(REPOSITORY)/$(NAME)-linux-arm64:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-linux-ppc64le:glibc" "$(REPOSITORY)/$(NAME)-linux-ppc64le:latest"
+	docker tag "$(REPOSITORY)/$(NAME)-linux-riscv64:glibc" "$(REPOSITORY)/$(NAME)-linux-riscv64:latest"
 	docker tag "$(REPOSITORY)/$(NAME)-linux-s390x:glibc" "$(REPOSITORY)/$(NAME)-linux-s390x:latest"
 
 .PHONY: manifest
@@ -63,8 +64,8 @@ manifest:
 		"$(REPOSITORY)/$(NAME)-linux-amd64:latest" \
 		"$(REPOSITORY)/$(NAME)-linux-armv7:latest" \
 		"$(REPOSITORY)/$(NAME)-linux-arm64:latest" \
-		"$(REPOSITORY)/$(NAME)-linux-riscv64:latest" \
 		"$(REPOSITORY)/$(NAME)-linux-ppc64le:latest" \
+		"$(REPOSITORY)/$(NAME)-linux-riscv64:latest" \
 		"$(REPOSITORY)/$(NAME)-linux-s390x:latest"
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push "$(REPOSITORY)/$(NAME):latest"
 
