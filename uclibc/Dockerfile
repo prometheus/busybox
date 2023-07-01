@@ -1,5 +1,6 @@
 ARG ARCH=""
-FROM ${ARCH}debian:bullseye-slim
+ARG TAG="bullseye-slim"
+FROM ${ARCH}debian:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
