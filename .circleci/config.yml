@@ -15,7 +15,7 @@ jobs:
     - run: docker info
     - run: uname -a
       # Register binfmt_misc targets for cross-building
-    - run: docker run --privileged linuxkit/binfmt:ecd24b710cad869af6a4716809f62d7164286367
+    - run: docker run --privileged linuxkit/binfmt:af88a591f9cc896a52ce596b9cf7ca26a061ef97
     - run: make
     - run: docker images
 
@@ -25,7 +25,7 @@ jobs:
     steps:
     - checkout
     - run: docker info
-    - run: docker run --privileged linuxkit/binfmt:ecd24b710cad869af6a4716809f62d7164286367
+    - run: docker run --privileged linuxkit/binfmt:af88a591f9cc896a52ce596b9cf7ca26a061ef97
     - run: make SUFFIX=
     - run: docker images
     - run: make tag SUFFIX=

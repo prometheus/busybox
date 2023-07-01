@@ -18,7 +18,7 @@
 IMAGE_NAME="$1"; shift;
 ARCH="$1"; shift;
 SUFFIX="$1"; shift;
-TAG="bullseye-slim"
+TAG="bookworm-slim"
 if [[ "${ARCH}" == "riscv64" ]]; then
     TAG="sid-slim"
 fi
