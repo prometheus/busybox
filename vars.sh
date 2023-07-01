@@ -18,6 +18,10 @@
 IMAGE_NAME="$1"; shift;
 ARCH="$1"; shift;
 SUFFIX="$1"; shift;
+TAG="bullseye-slim"
+if [[ "${ARCH}" == "riscv64" ]]; then
+    TAG="sid-slim"
+fi
 
 if [[ -n "${ARCH}" ]]; then
   ARCH="${ARCH}/"
