@@ -27,6 +27,13 @@ The following files are added (taken from Debian) to fix some common issues:
 - `/etc/services` : for named ports resolution
 - `/lib/x86_64-linux-gnu/libpthread.so.0` : common required lib for project binaries that cannot be statically built.
 
+### prom/busybox:alpine : musl-libc
+
+Based on the official `alpine:latest` base image.
+
+The `busybox` executable is replaced by the [statically linked busybox](https://pkgs.alpinelinux.org/package/v3.16/main/x86_64/busybox-static) from `alpine:latest`.
+The Alpine project provides far more timely security patches to `busybox` that the official `busybox` release.
+
 ## Build Docker images locally
 
 ```
