@@ -8,6 +8,7 @@ RUN \
       ca-certificates \
       gcc \
       netbase \
+      libvpx \
     && rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
