@@ -16,16 +16,32 @@
 [ "$#" -lt 3 ] && echo "Missing args: $0 {IMAGE_NAME} {ARCH} {SUFFIX} {VERSIONS}" && exit 2;
 
 IMAGE_NAME="$1"; shift;
-ARCH="$1"; shift;
+INPUT_ARCH="$1"; shift;
 SUFFIX="$1"; shift;
 TAG="bookworm-slim"
-if [[ "${ARCH}" == "riscv64" ]]; then
-    TAG="sid-slim"
-fi
+PLATFORM="linux/amd64"
 
-if [[ -n "${ARCH}" ]]; then
-  ARCH="${ARCH}/"
-fi
+case "${INPUT_ARCH}" in
+    arm32v7)
+        PLATFORM="linux/arm/v7"
+        ;;
+    arm64v8)
+        PLATFORM="linux/arm64"
+        ;;
+    riscv64)
+        PLATFORM="linux/riscv64"
+        TAG="sid-slim"
+        ;;
+    ppc64le)
+        PLATFORM="linux/ppc64le"
+        ;;
+    s390x)
+        PLATFORM="linux/s390x"
+        ;;
+esac
+
+# We use official images with --platform, so no prefix needed
+ARCH=""
 
 versions=( "$@" )
 if [[ "${#versions[@]}" -eq 0 ]]; then
