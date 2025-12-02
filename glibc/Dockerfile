@@ -1,6 +1,6 @@
 ARG ARCH=""
 ARG TAG="bookworm-slim"
-FROM docker.io/debian:${TAG}
+FROM debian:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
@@ -31,7 +31,7 @@ RUN set -x \
         fi; \
     done
 
-FROM        docker.io/${ARCH}busybox:glibc
+FROM        ${ARCH}busybox:glibc
 MAINTAINER  The Prometheus Authors <prometheus-developers@googlegroups.com>
 
 COPY --from=0 /rootfs /
