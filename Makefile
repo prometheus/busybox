@@ -11,11 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-REPOSITORY ?= quay.io/prometheus
+REPOSITORY ?= quay.io/organization/prometheus
 NAME       := busybox
 BRANCH     := $(shell git rev-parse --abbrev-ref HEAD)
 SUFFIX     ?= -$(subst /,-,$(BRANCH))
-VERSIONS   ?= uclibc glibc
+VERSIONS   ?= uclibc glibc alpine
 
 .PHONY: all
 all: build
@@ -26,10 +26,10 @@ build:
 	@./build.sh "$(REPOSITORY)/$(NAME)-linux-armv7" "arm32v7" "$(SUFFIX)" $(VERSIONS)
 	@./build.sh "$(REPOSITORY)/$(NAME)-linux-arm64" "arm64v8" "$(SUFFIX)" $(VERSIONS)
 	# glibc doens't support riscv64
-	@./build.sh "$(REPOSITORY)/$(NAME)-linux-riscv64" "riscv64" "$(SUFFIX)" uclibc
+	@./build.sh "$(REPOSITORY)/$(NAME)-linux-riscv64" "riscv64" "$(SUFFIX)" uclibc alpine
 	# uclibc doens't support ppc64le, s390x
-	@./build.sh "$(REPOSITORY)/$(NAME)-linux-ppc64le" "ppc64le" "$(SUFFIX)" glibc
-	@./build.sh "$(REPOSITORY)/$(NAME)-linux-s390x" "s390x" "$(SUFFIX)" glibc
+	@./build.sh "$(REPOSITORY)/$(NAME)-linux-ppc64le" "ppc64le" "$(SUFFIX)" glibc alpine
+	@./build.sh "$(REPOSITORY)/$(NAME)-linux-s390x" "s390x" "$(SUFFIX)" glibc alpine
 
 .PHONY: tag
 tag:
@@ -59,6 +59,16 @@ manifest:
 		"$(REPOSITORY)/$(NAME)-linux-s390x:glibc"
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push "$(REPOSITORY)/$(NAME):glibc"
 
+	# Manifest for "alpine"
+	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create -a "$(REPOSITORY)/$(NAME):alpine" \
+		"$(REPOSITORY)/$(NAME)-linux-amd64:alpine" \
+		"$(REPOSITORY)/$(NAME)-linux-armv7:alpine" \
+		"$(REPOSITORY)/$(NAME)-linux-arm64:alpine" \
+		"$(REPOSITORY)/$(NAME)-linux-riscv64:alpine" \
+		"$(REPOSITORY)/$(NAME)-linux-ppc64le:alpine" \
+		"$(REPOSITORY)/$(NAME)-linux-s390x:alpine"
+	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push "$(REPOSITORY)/$(NAME):alpine"
+
 	# Manifest for "latest"
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create -a "$(REPOSITORY)/$(NAME):latest" \
 		"$(REPOSITORY)/$(NAME)-linux-amd64:latest" \
@@ -75,7 +85,7 @@ push:
 	@./push.sh "$(REPOSITORY)/$(NAME)-linux-armv7" "arm32v7" "$(SUFFIX)" $(VERSIONS)
 	@./push.sh "$(REPOSITORY)/$(NAME)-linux-arm64" "arm64v8" "$(SUFFIX)" $(VERSIONS)
 	# glibc doens't support riscv64
-	@./push.sh "$(REPOSITORY)/$(NAME)-linux-riscv64" "riscv64" "$(SUFFIX)" uclibc
+	@./push.sh "$(REPOSITORY)/$(NAME)-linux-riscv64" "riscv64" "$(SUFFIX)" uclibc alpine
 	# uclibc doens't support ppc64le, s390x
-	@./push.sh "$(REPOSITORY)/$(NAME)-linux-ppc64le" "ppc64le" "$(SUFFIX)" glibc
-	@./push.sh "$(REPOSITORY)/$(NAME)-linux-s390x" "s390x" "$(SUFFIX)" glibc
+	@./push.sh "$(REPOSITORY)/$(NAME)-linux-ppc64le" "ppc64le" "$(SUFFIX)" glibc alpine
+	@./push.sh "$(REPOSITORY)/$(NAME)-linux-s390x" "s390x" "$(SUFFIX)" glibc alpine
