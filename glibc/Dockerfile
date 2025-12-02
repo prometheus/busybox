@@ -1,6 +1,6 @@
 ARG ARCH=""
 ARG TAG="bookworm-slim"
-FROM debian:${TAG}
+FROM ${ARCH}debian:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
