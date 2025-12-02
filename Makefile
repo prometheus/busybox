@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-REPOSITORY ?= quay.io/organization/prometheus
+REPOSITORY ?= quay.io/repository/prometheus
 NAME       := busybox
 BRANCH     := $(shell git rev-parse --abbrev-ref HEAD)
 SUFFIX     ?= -$(subst /,-,$(BRANCH))
