@@ -1,6 +1,5 @@
 ARG ARCH=""
-ARG TAG="3.22.2"
-FROM        docker.io/${ARCH}alpine:${TAG} as builder
+FROM        docker.io/${ARCH}alpine:3.22.2" as builder
 
 RUN apk upgrade -U && \
     apk add tzdata ca-certificates busybox-static
