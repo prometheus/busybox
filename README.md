@@ -29,9 +29,9 @@ The following files are added (taken from Debian) to fix some common issues:
 
 ### prom/busybox:alpine : musl-libc
 
-Based on the official `alpine:latest` base image.
+Based on the official `alpine:3.22.2` base image.
 
-The `busybox` executable is replaced by the [statically linked busybox](https://pkgs.alpinelinux.org/package/edge/main/x86_64/busybox-static) from `alpine:latest`.
+The `busybox` executable is replaced by the [statically linked busybox](https://pkgs.alpinelinux.org/package/edge/main/x86_64/busybox-static) from `alpine:3.22.2`.
 The Alpine project provides far more timely security patches to `busybox` that the official `busybox` release.
 
 
