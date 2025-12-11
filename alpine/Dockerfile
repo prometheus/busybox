@@ -22,7 +22,11 @@ RUN ["/bin/busybox", "--install", "-s", "/bin"]
 
 FROM scratch
 
-LABEL maintainer="The Prometheus Authors <prometheus-developers@googlegroups.com>"
+LABEL org.opencontainers.image.authors="The Prometheus Authors <prometheus-developers@googlegroups.com>"
+LABEL org.opencontainers.image.title="Prometheus BusyBox"
+LABEL org.opencontainers.image.description="Minimal BusyBox image for Prometheus based on Alpine 3.23.0"
+LABEL org.opencontainers.image.version="3.23.0"
+LABEL org.opencontainers.image.source="https://github.com/prometheus/busybox"
 
 COPY --from=install / /
 
