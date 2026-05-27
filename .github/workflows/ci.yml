@@ -1,0 +1,54 @@
+---
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "**"
+  schedule:
+    - cron: "54 10 15 * *"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name != 'schedule'
+      &&
+      !(github.event_name == 'push' && github.event.ref == 'refs/heads/master')
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - run: docker info
+      - run: uname -a
+      - name: Register binfmt_misc targets for cross-building
+        run: docker run --privileged --platform linux/amd64 linuxkit/binfmt:v1.1.0
+      - run: make
+      - run: docker images
+
+  publish_master:
+    name: Publish master branch artifacts
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' && github.event.ref == 'refs/heads/master')
+      ||
+      github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - run: docker info
+      - name: Register binfmt_misc targets for cross-building
+        run: docker run --privileged --platform linux/amd64 linuxkit/binfmt:v1.1.0
+      - run: make SUFFIX=
+      - run: docker images
+      - run: make tag SUFFIX=
+      - name: Login to quay.io
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_IO_LOGIN }}
+          password: ${{ secrets.QUAY_IO_PASSWORD }}
+      - run: make push
+      - run: make manifest SUFFIX=
