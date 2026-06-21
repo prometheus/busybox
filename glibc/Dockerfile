@@ -31,6 +31,22 @@ RUN set -x \
         fi; \
     done
 
+ARG CODENAME="bookworm"
+ARG VERSION="12"
+ARG OS_RELEASE_FILE=/rootfs/usr/lib/os-release
+
+RUN mkdir -p /rootfs/usr/lib && \
+    echo 'PRETTY_NAME="Prometheus Busybox"' > ${OS_RELEASE_FILE} && \
+    echo 'NAME="Debian GNU/Linux"' >> ${OS_RELEASE_FILE} && \
+    echo 'ID="debian"' >> ${OS_RELEASE_FILE} && \
+    echo 'VERSION_ID="'${VERSION}'"' >> ${OS_RELEASE_FILE} && \
+    echo 'VERSION="Debian GNU/Linux '${VERSION}' ('${CODENAME}')"' >> ${OS_RELEASE_FILE} && \
+    echo 'HOME_URL="https://github.com/prometheus/busybox"' >> ${OS_RELEASE_FILE} && \
+    echo 'SUPPORT_URL="https://github.com/prometheus/busybox/blob/master/README.md"' >> ${OS_RELEASE_FILE} && \
+    echo 'BUG_REPORT_URL="https://github.com/prometheus/busybox/issues/new"' >> ${OS_RELEASE_FILE}
+
+RUN ln -s /usr/lib/os-release /rootfs/etc/os-release
+
 FROM        ${ARCH}busybox:glibc
 MAINTAINER  The Prometheus Authors <prometheus-developers@googlegroups.com>
 

@@ -15,6 +15,7 @@ The following files are added (taken from Debian) to fix some common issues:
 - `/etc/ssl/certs/ca-certificates.crt` : for HTTPS support
 - `/usr/share/zoneinfo` : for timezones
 - `/etc/services` : for named ports resolution
+- `/etc/os-release` and `/usr/lib/os-release` : for base OS identification
 
 ### prom/busybox:glibc : glibc
 
@@ -25,6 +26,7 @@ The following files are added (taken from Debian) to fix some common issues:
 - `/etc/ssl/certs/ca-certificates.crt` : for HTTPS support
 - `/usr/share/zoneinfo` : for timezones
 - `/etc/services` : for named ports resolution
+- `/etc/os-release` and `/usr/lib/os-release` : for base OS identification
 - `/lib/x86_64-linux-gnu/libpthread.so.0` : common required lib for project binaries that cannot be statically built.
 
 ## Build Docker images locally
