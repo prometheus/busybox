@@ -1,1 +1,1 @@
-* Steve Durrheimer <s.durrheimer@gmail.com>
+* Ben Kochie <superq@gmail.com> @SuperQ
